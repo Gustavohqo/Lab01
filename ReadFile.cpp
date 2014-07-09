@@ -1,30 +1,28 @@
-#include "ReadFile.h"
+//#include "ReadFile.h"
 #include <iostream>
 #include <string>
 
-ReadFile* createReadFile(const char* file_name)
+//class "constructor"
+ReadFile::ReadFile(const char* file_name)
 {
-   ReadFile* rf = new ReadFile;
 
-   rf->input_file.open(file_name);
-   rf->closed = false;
-   rf->_eof = false;
-
-   return rf;
+   input_file.open(file_name);
+   closed = false;
+   eof = false;
 }
 
-void destroyReadFile(ReadFile* rf)
+void ReadFile::~ReadFile()
 {
    close(rf);
    delete rf;
 }
 
-bool eof(ReadFile* rf)
+bool ReadFile::eof()
 {
    return rf->_eof;
 }
 
-void close(ReadFile* rf)
+void ReadFile::close()
 {
    if (!rf->closed)
    {
@@ -33,7 +31,7 @@ void close(ReadFile* rf)
    }
 }
 
-String* readLine(ReadFile* rf)
+String* ReadFile::readLine()
 {
    if (rf->closed) return NULL;
    if (rf->_eof) return NULL;
